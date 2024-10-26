@@ -12,3 +12,10 @@ export interface QuizAnswer {
   hairIssue: string;
   hairColor: string;
 }
+
+export interface QuestionProps {
+  question: string;
+  options: string[];
+  onAnswer: (answer: string) => void;
+  currentAnswer: string;
+}

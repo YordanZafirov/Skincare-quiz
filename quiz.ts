@@ -1,6 +1,6 @@
 import { Quiz } from "./static/types";
 
-export const questions: Quiz[] = [
+export const QUESTION_DATA: Quiz[] = [
     {
       id: 1,
       question: "What's your hair type or texture?",
