@@ -10,7 +10,7 @@ import Button from "../../components/Button/Button";
 const StartPage = () => {
   const navigate = useNavigate();
   const handleStartQuiz = () => {
-    navigate("/quiz");
+    navigate("/quiz/0");
   };
   return (
     <StartPageStyle>

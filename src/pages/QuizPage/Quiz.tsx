@@ -1,70 +1,36 @@
-import { QUESTION_DATA } from "../../../quiz";
-import { useState } from "react";
 import Question from "../../components/Quesiton/Question";
+import useQuizLogic from "./Quiz.logic";
+import { QuizPageStyle } from "./Quiz.style";
 
 const QuizPage = () => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState({
-    hairType: "",
-    washFrequency: "",
-    desiredBenefit: "",
-    hairIssue: "",
-    hairColor: "",
-  });
 
-  const handleAnswer = (questionKey: string, answer: string) => {
-    setAnswers({
-      ...answers,
-      [questionKey]: answer,
-    });
-  };
-
-  const handleNext = () => {
-    if (currentQuestionIndex < QUESTION_DATA.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-    }
-  };
-
-  const isLastQuestion = currentQuestionIndex === QUESTION_DATA.length - 1;
-  const hasAnsweredCurrentQuestion =
-    !!answers[QUESTION_DATA[currentQuestionIndex].key];
+  const {
+    questionIndex,
+    answers,
+    question,
+    totalQuestions,
+    handleAnswer,
+    handleNext,
+    handlePrev,
+  } = useQuizLogic();
 
   return (
-    <div>
-      <h1>Quiz</h1>
-      <h2>
-        Question {currentQuestionIndex + 1} of {QUESTION_DATA.length}
-      </h2>
+    <QuizPageStyle>
       <Question
-        question={QUESTION_DATA[currentQuestionIndex].question}
-        options={QUESTION_DATA[currentQuestionIndex].options}
-        onAnswer={(answer) =>
-          handleAnswer(QUESTION_DATA[currentQuestionIndex].key, answer)
-        }
-        currentAnswer={answers[QUESTION_DATA[currentQuestionIndex].key]}
+        question={question.question}
+        options={question.options}
+        onAnswer={(answer) => handleAnswer(question.key, answer)}
+        currentAnswer={answers[question.key]}
       />
-      <button onClick={handlePrev} disabled={currentQuestionIndex === 0}>
-        Previous
+      <button onClick={handlePrev} disabled={questionIndex === 0}>
+        Back
       </button>
-
-      <button
-        onClick={() => {
-          handleNext();
-          if (isLastQuestion) {
-            console.log(answers);
-          }
-        }}
-        disabled={!hasAnsweredCurrentQuestion}
-      >
-        {isLastQuestion ? "Discover your results" : "Next"}
+      <button onClick={handleNext}>
+        {questionIndex + 1 === totalQuestions
+          ? "Discover your results"
+          : "Next"}
       </button>
-    </div>
+    </QuizPageStyle>
   );
 };
 
