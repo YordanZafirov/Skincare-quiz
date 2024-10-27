@@ -1,9 +1,9 @@
+import Button from "../../components/Button/Button";
 import Question from "../../components/Quesiton/Question";
 import useQuizLogic from "./Quiz.logic";
-import { QuizPageStyle } from "./Quiz.style";
+import { ButtonDiv, GreyButton, QuizPageStyle } from "./Quiz.style";
 
 const QuizPage = () => {
-
   const {
     questionIndex,
     answers,
@@ -22,14 +22,17 @@ const QuizPage = () => {
         onAnswer={(answer) => handleAnswer(question.key, answer)}
         currentAnswer={answers[question.key]}
       />
-      <button onClick={handlePrev} disabled={questionIndex === 0}>
-        Back
-      </button>
-      <button onClick={handleNext}>
-        {questionIndex + 1 === totalQuestions
-          ? "Discover your results"
-          : "Next"}
-      </button>
+      <ButtonDiv>
+        <GreyButton onClick={handlePrev} disabled={questionIndex === 0}>
+          Back
+        </GreyButton>
+        <Button onClick={handleNext}>
+          {questionIndex + 1 === totalQuestions
+            ? "Discover your results"
+            : "Next question"}
+          {/* add arrow to the right */}
+        </Button>
+      </ButtonDiv>
     </QuizPageStyle>
   );
 };
