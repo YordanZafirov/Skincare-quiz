@@ -17,7 +17,7 @@ export const ButtonDiv = styled.div`
 `;
 
 export const GreyButton = styled.button`
-  /* font-family: Proxima Nova; */
+  font-family: "Nunito Sans", sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 19.49px;
@@ -35,4 +35,10 @@ export const GreyButton = styled.button`
   &:hover {
     color: #3f4d5a;
   }
+`;
+
+export const NextButton = styled.div`
+display: flex;
+align-items: center;
+gap: 10px;
 `;

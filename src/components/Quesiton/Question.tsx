@@ -1,4 +1,5 @@
 import { QuestionProps } from "../../../static/types";
+import { CenteredHeading, StyledLabel, StyledUl } from "./Question.style";
 
 const Question = ({
   question,
@@ -6,13 +7,18 @@ const Question = ({
   onAnswer,
   currentAnswer,
 }: QuestionProps) => {
+  const indexToLetter = (index: number) => {
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    return letters[index];
+  };
+
   return (
-    <div>
-      <h2>{question}</h2>
-      <ul>
-        {options.map((option) => (
+    <>
+      <CenteredHeading>{question}</CenteredHeading>
+      <StyledUl>
+        {options.map((option, index) => (
           <li key={option}>
-            <label>
+            <StyledLabel isChecked={currentAnswer === option}>
               <input
                 type="radio"
                 name="answer"
@@ -20,12 +26,12 @@ const Question = ({
                 checked={currentAnswer === option}
                 onChange={() => onAnswer(option)}
               />
-              {option}
-            </label>
+              {`${indexToLetter(index)}. ${option}`}
+            </StyledLabel>
           </li>
         ))}
-      </ul>
-    </div>
+      </StyledUl>
+    </>
   );
 };
 
